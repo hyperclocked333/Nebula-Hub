@@ -4,7 +4,8 @@ i do what i do and it works 99% of the time
 loadstrings:  
 miners haven mod closet cheat:  
 
-```--[[made by: https://github.com/hyperclocked333 ]]--
+```
+--[[made by: https://github.com/hyperclocked333 ]]--
 
 getgenv().settings = {
   layout = 1,
