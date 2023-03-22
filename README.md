@@ -24,4 +24,4 @@ getgenv().settings = {
   wandererToggle = "x", -- toggle the wanderer/masked man gui
 }
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/hyperclocked333/Nebula-Hub/main/miners%20haven%20mod"))()```
+loadstring(game:HttpGet("https://raw.githubusercontent.com/hyperclocked333/Nebula-Hub/main/miners%20haven%20mod"))()
