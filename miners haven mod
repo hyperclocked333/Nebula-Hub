@@ -3,7 +3,7 @@ local randGen = Random.new() function rand(a,b) return randGen:NextNumber(a,b) e
 local lp = game.Players.LocalPlayer
 local startGui = game:GetService("StarterGui")
 task.spawn(function()
-  lp:WaitForChild("AnalyticsSessionId"):Destroy() -- might spoof discord check but wont spoof you from leaders
+  lp:WaitForChild("AnalyticsSessionId"):Destroy() -- might spoof discord check but wont spoof you from leaderboard
 end)
 local function notify(text)
   startGui:SetCore("SendNotification", {
