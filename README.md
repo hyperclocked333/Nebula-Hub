@@ -20,8 +20,8 @@ getgenv().settings = {
           maximum = 1.83,
       },
   },
-  craftsmanToggle = "z",
-  wandererToggle = "x",
+  craftsmanToggle = "z", -- toggle the craftsman gui
+  wandererToggle = "x", -- toggle the wanderer/masked man gui
 }
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/hyperclocked333/Nebula-Hub/main/miners%20haven%20mod"))()```
