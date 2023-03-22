@@ -1,6 +1,6 @@
 # Nebula Hub - The Hub For The Most Unasked Games
 this is nebula hub  
-i do what i do and it works 99% of the time  
+i do what i do and it works 99% of the time (its open sourced too 😊)
 loadstrings:  
 miners haven mod closet cheat:  
 
