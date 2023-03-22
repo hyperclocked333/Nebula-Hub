@@ -1,0 +1,145 @@
+----------MADE BY NEBULA (pls give me credit and dont skid it k thx)------------
+local randGen = Random.new() function rand(a,b) return randGen:NextNumber(a,b) end
+local lp = game.Players.LocalPlayer
+local startGui = game:GetService("StarterGui")
+task.spawn(function()
+  lp:WaitForChild("AnalyticsSessionId"):Destroy() -- might spoof discord check but wont spoof you from leaders
+end)
+local function notify(text)
+  startGui:SetCore("SendNotification", {
+      Title = "nebula hub",
+      Text = text,
+      Icon = "rbxassetid://12862120562",
+      Duration = 5,
+  })
+end
+--in case some dumbass loads the script BEFORE LOADING THEIR SLOT
+if not lp:FindFirstChild("PlayerData") then
+    notify("please load a slot :skull:")
+    repeat task.wait() until lp:FindFirstChild("PlayerData")
+end
+notify("slot detected, loading script")
+local startTime = os.clock()
+  --other variables
+  
+local tycoon = tostring(lp:WaitForChild("PlayerTycoon").Value)
+local replicated = game:GetService("ReplicatedStorage")
+local playerGui = lp.PlayerGui:WaitForChild("GUI")
+local moneyVal = playerGui:WaitForChild("Money")
+local craftGui = playerGui:WaitForChild("Craftsman")
+local wandererGui = playerGui:WaitForChild("TheWanderer")
+local rebirthCD
+local layoutCD
+local _tycoon = workspace.Tycoons[tycoon]:GetChildren()
+local mouse = lp:GetMouse()
+getgenv().toggle = false
+--script 
+
+local function mhmNotify(text)
+  --stole this from the player module script :sob:
+local v7 = playerGui.Notifications.Template:Clone()
+v7.Parent = playerGui.Notifications
+v7.Visible = true
+local p11 = text
+local l__HUD__5 = require(playerGui.HUD)
+    v7.Text = p11;
+    v7.TextColor3 = Color3.fromRGB(128,0,128);
+    v7.BG.ImageColor3 = Color3.fromRGB(0,0,0);
+    local l__TextBounds__8 = v7.TextBounds;
+    v7.Size = UDim2.new(0, l__TextBounds__8.X, 0, l__TextBounds__8.Y);
+    v7.Visible = true;
+    v7.TextTransparency = 1;
+    v7.TextStrokeTransparency = 1;
+    v7.BG.ImageTransparency = 1;
+    local l__ImageColor3__9 = v7.BG.ImageColor3;
+    v7.TextStrokeColor3 = Color3.new(l__ImageColor3__9.r / 2, l__ImageColor3__9.b / 2, l__ImageColor3__9.g / 2);
+    v7.Fancy.ImageColor3 = l__ImageColor3__9;
+    v7.Fancy.ImageTransparency = 1;
+    v7.Fancy.Visible = true;
+    v7.Fancy.BorderColor3 = l__ImageColor3__9;
+    v7.BorderColor3 = l__ImageColor3__9;
+    v7.Fancy.Size = UDim2.new(3, 0, 3, 0);
+    l__HUD__5.tween(v7.Fancy, { "Size", "ImageTransparency" }, { UDim2.new(1, 14, 1, 0), 0.5 }, 0.3);
+    l__HUD__5.tween(v7, { "TextTransparency", "TextStrokeTransparency" }, { 0, 0 }, 0.5);
+    wait((3 + string.len(p11) / 25) * 1);
+    v7.BG.ImageTransparency = 0.5;
+    v7.Fancy.Visible = false;
+    l__HUD__5.tween(v7, { "TextTransparency", "TextStrokeTransparency" }, 1, 0.5);
+    l__HUD__5.tween(v7.BG, { "ImageTransparency" }, 1, 0.5);
+    wait(0.5);
+    v7:Destroy();
+end
+
+local function rebirth()
+  task.wait(rand(settings.delays.rebirth.minimum,settings.delays.rebirth.maximum))
+  replicated.Reb_irth:InvokeServer(lp.Reb.Value + 1)
+  rebirthCD = false
+end
+local function loadLayout()
+  task.wait(rand(settings.delays.layout.minimum,settings.delays.layout.maximum))
+  replicated.Layouts:InvokeServer("Load","Layout"..settings.layout)
+  layoutCD = false
+end
+
+local function loadIfEmpty()
+  if #_tycoon == 4 and not layoutCD then
+    loadLayout()
+  end 
+end
+
+local function autofarmToggle()
+  if not toggle then
+    mhmNotify("autofarm on")
+    toggle = true
+    loadIfEmpty()
+else
+    mhmNotify("autofarm off")
+    toggle = false
+end
+end
+
+local function craftsmanToggle()
+if craftGui.Visible then
+  craftGui.Visible = false
+else
+  craftGui.Visible = true
+  wandererGui.Visible = false
+end
+end
+
+local function wandererToggle()
+  if wandererGui.Visible then
+    wandererGui.Visible = false
+  else
+    wandererGui.Visible = true
+    craftGui.Visible = false
+  end
+end
+
+mouse.KeyDown:Connect(function(k)
+  if k == settings.autofarmToggle then
+    autofarmToggle()
+  elseif k == settings.craftsmanToggle then
+  craftsmanToggle()
+  elseif k == settings.wandererToggle then
+    wandererToggle()
+  end
+end)
+
+moneyVal.Changed:Connect(function(m)
+  if m == "0;49.99999999999999" then
+      if not layoutCD and toggle then
+          layoutCD = true
+          loadLayout()
+      end
+  else
+      if not rebirthCD and toggle then
+          rebirthCD = true
+          rebirth()
+      end
+  end
+end)
+
+mhmNotify("script loaded in " .. (math.round((os.clock() - startTime) * 1000) / 1000) .. " seconds")
+task.wait(2.5)
+mhmNotify("thanks for using nebula hub autofarm (you avoided carpal tunnel good job)\npress ".. settings.autofarmToggle.." to toggle autofarm")
