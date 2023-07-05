@@ -72,7 +72,7 @@ end
 
 local function rebirth()
   task.wait(rand(settings.delays.rebirth.minimum,settings.delays.rebirth.maximum))
-  replicated.Reb_irth:InvokeServer(lp.Reb.Value + 1)
+  replicated.Reb_irth:InvokeServer(lp.Reb.Value + 43)
   rebirthCD = false
 end
 local function loadLayout()
